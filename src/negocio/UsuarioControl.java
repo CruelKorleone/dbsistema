@@ -24,8 +24,8 @@ public class UsuarioControl {
     private final UsuarioDAO DATOS;
     private final RolDAO DATOSROL;
     private Usuario obj;
-    public int registrosMostrados;
     private DefaultTableModel modeloTabla;
+    public int registrosMostrados;
 
     public UsuarioControl() {
         this.DATOS = new UsuarioDAO();
@@ -122,6 +122,7 @@ public class UsuarioControl {
 
     public String actualizar(int id, int RolId, String nombre, String tipoDocumento, String numDocumento, String numDocumentoAnt, String direccion, String telefono, String email, String clave) throws ClassNotFoundException {
         if (numDocumento.equals(numDocumentoAnt)) {
+            obj.setId(id);
             obj.setRolId(RolId);
             obj.setNombre(nombre);
             obj.setTipoDocumento(tipoDocumento);
