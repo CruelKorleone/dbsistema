@@ -62,7 +62,8 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario> {
     public boolean insertar(Usuario obj) throws ClassNotFoundException {
         resp = false;
         try {
-            ps = CON.conectar().prepareStatement("INSERT INTO usuario(id_rol, nombre, tipo_documento, num_documento, direccion, telefono, email, clave, activo) VALUES (?,?,?,?,?,?,?,?,1)");
+            ps = CON.conectar().prepareStatement("INSERT INTO usuario(id_rol, nombre, tipo_documento, num_documento, direccion, "
+                    + "telefono, email, clave, activo) VALUES (?,?,?,?,?,?,?,?,1)");
             ps.setInt(1, obj.getRolId());
             ps.setString(2, obj.getNombre());
             ps.setString(3, obj.getTipoDocumento());
@@ -89,7 +90,8 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario> {
     public boolean actualizar(Usuario obj) throws ClassNotFoundException {
         resp = false;
         try {
-            ps = CON.conectar().prepareStatement("UPDATE usuario SET id_rol = ?, nombre=? , tipo_documento=?, num_documento=?, direccion = ?, telefono = ?, email = ?, clave = ? WHERE id = ?");
+            ps = CON.conectar().prepareStatement("UPDATE usuario SET id_rol=?, nombre=?, tipo_documento=?, num_documento=?, "
+                    + "direccion=?, telefono=?, email=?, clave=? WHERE id=?");
             ps.setInt(1, obj.getRolId());
             ps.setString(2, obj.getNombre());
             ps.setString(3, obj.getTipoDocumento());
@@ -178,7 +180,7 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario> {
     public boolean existe(String texto) throws ClassNotFoundException {
         resp = false;
         try {
-            ps = CON.conectar().prepareStatement("SELECT num_documento FROM articulo WHERE codigo = ?");
+            ps = CON.conectar().prepareStatement("SELECT num_documento FROM usuario WHERE num_documento=?");
             ps.setString(1, texto);
             rs = ps.executeQuery();
             rs.next();
