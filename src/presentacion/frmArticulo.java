@@ -79,11 +79,11 @@ public class frmArticulo extends javax.swing.JInternalFrame {
         }
         cboNumPagina.removeAllItems();
 
-        for (int i = 1; i < totalPaginas; i++) {
+        for (int i = 1; i <= totalPaginas; i++) {
             cboNumPagina.addItem(Integer.toString(i));
         }
 
-        cboNumPagina.setSelectedItem(0);
+        cboNumPagina.setSelectedIndex(0);
     }
 
     private void listar(String texto, boolean paginar) throws ClassNotFoundException {
