@@ -59,6 +59,39 @@ public class PersonaControl {
         }
         return this.modeloTabla;
     }
+    
+    public DefaultTableModel listarTipo(String texto, int totalPorPagina, int numPagina, String tipoPersona) throws ClassNotFoundException {
+        List<Persona> lista = new ArrayList();
+        lista.addAll(DATOS.listarTipo(texto, totalPorPagina, numPagina, tipoPersona));
+
+        String[] titulos = {"ID", "Tipo", "Razón Social", "Documento", "Num. Doc.", "Dirección", "Teléfono", "Email", "Estado"};
+
+        this.modeloTabla = new DefaultTableModel(null, titulos);
+
+        String estado;
+        String[] registro = new String[9];
+
+        this.registrosMostrados = 0;
+        for (Persona item : lista) {
+            if (item.isActivo()) {
+                estado = "Activo";
+            } else {
+                estado = "Inactivo";
+            }
+            registro[0] = Integer.toString(item.getId());
+            registro[1] = item.getTipoPersona().toUpperCase();
+            registro[2] = item.getNombre().toUpperCase();
+            registro[3] = item.getTipoDocumento().toUpperCase();
+            registro[4] = item.getNumDocumento();
+            registro[5] = item.getDireccion().toUpperCase();
+            registro[6] = item.getTelefono();
+            registro[7] = item.getEmail().toLowerCase();
+            registro[8] = estado.toUpperCase();
+            this.modeloTabla.addRow(registro);
+            this.registrosMostrados = this.registrosMostrados + 1;
+        }
+        return this.modeloTabla;
+    }
 
 //    public DefaultComboBoxModel seleccionar() throws ClassNotFoundException {
 //        DefaultComboBoxModel items = new DefaultComboBoxModel();

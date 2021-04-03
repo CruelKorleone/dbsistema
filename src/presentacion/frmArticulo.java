@@ -176,6 +176,7 @@ public class frmArticulo extends javax.swing.JInternalFrame {
         cboNumPagina = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         cboTotalPorPagina = new javax.swing.JComboBox<>();
+        rptArticulos = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -286,6 +287,13 @@ public class frmArticulo extends javax.swing.JInternalFrame {
             }
         });
 
+        rptArticulos.setText("Reporte de articulos");
+        rptArticulos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rptArticulosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -304,7 +312,8 @@ public class frmArticulo extends javax.swing.JInternalFrame {
                         .addComponent(btnNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEditar)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rptArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(btnDesactivar)
@@ -331,7 +340,8 @@ public class frmArticulo extends javax.swing.JInternalFrame {
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar)
                     .addComponent(btnNuevo)
-                    .addComponent(btnEditar))
+                    .addComponent(btnEditar)
+                    .addComponent(rptArticulos))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -763,6 +773,14 @@ public class frmArticulo extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_cboTotalPorPaginaActionPerformed
 
+    private void rptArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rptArticulosActionPerformed
+        try {
+            this.CONTROL.reporteArticulos();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmArticulo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_rptArticulosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActivar;
@@ -792,6 +810,7 @@ public class frmArticulo extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblTotalRegistros;
+    private javax.swing.JButton rptArticulos;
     private javax.swing.JTabbedPane tabGeneral;
     private javax.swing.JTable tablaListado;
     private javax.swing.JTextField txtBuscar;

@@ -25,6 +25,21 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(int id, int rolId, String rolNombre, String nombre, String tipoDocumento, String numDocumento, String direccion, String telefono, String email, boolean activo) {
+        this.id = id;
+        this.rolId = rolId;
+        this.rolNombre = rolNombre;
+        this.nombre = nombre;
+        this.tipoDocumento = tipoDocumento;
+        this.numDocumento = numDocumento;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.email = email;
+        this.activo = activo;
+    }
+    
+    
+
     public Usuario(int id, int rolId, String rolNombre, String nombre, String tipoDocumento, String numDocumento, String direccion, String telefono, String email, String clave, boolean activo) {
         this.id = id;
         this.rolId = rolId;

@@ -5,13 +5,21 @@
  */
 package negocio;
 
+import database.Conexion;
 import datos.ArticuloDAO;
 import datos.CategoriaDAO;
 import entidades.Articulo;
 import entidades.Categoria;
+import java.io.File;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -35,6 +43,40 @@ public class ArticuloControl {
     public DefaultTableModel listar(String texto, int totalPorPagina, int numPagina) throws ClassNotFoundException {
         List<Articulo> lista = new ArrayList();
         lista.addAll(DATOS.listar(texto, totalPorPagina, numPagina));
+
+        String[] titulos = {"ID", "ID Categoria", "Categoria", "Código", "Nombre", "Precio venta", "Cantidad", "Descripción", "Imagen", "Estado"};
+
+        this.modeloTabla = new DefaultTableModel(null, titulos);
+
+        String estado;
+        String[] registro = new String[10];
+
+        this.registrosMostrados = 0;
+        for (Articulo item : lista) {
+            if (item.isActivo()) {
+                estado = "Activo";
+            } else {
+                estado = "Inactivo";
+            }
+            registro[0] = Integer.toString(item.getId());
+            registro[1] = Integer.toString(item.getCategoriaId());
+            registro[2] = item.getCategoriaNombre().toUpperCase();
+            registro[3] = item.getCodigo();
+            registro[4] = item.getNombre().toUpperCase();
+            registro[5] = Double.toString(item.getPrecioVenta());
+            registro[6] = Integer.toString(item.getStock());
+            registro[7] = item.getDescripcion().toUpperCase();
+            registro[8] = item.getImagen();
+            registro[9] = estado.toUpperCase();
+            this.modeloTabla.addRow(registro);
+            this.registrosMostrados = this.registrosMostrados + 1;
+        }
+        return this.modeloTabla;
+    }
+
+    public DefaultTableModel listarArticuloVenta(String texto, int totalPorPagina, int numPagina) throws ClassNotFoundException {
+        List<Articulo> lista = new ArrayList();
+        lista.addAll(DATOS.listarArticuloVenta(texto, totalPorPagina, numPagina));
 
         String[] titulos = {"ID", "ID Categoria", "Categoria", "Código", "Nombre", "Precio venta", "Cantidad", "Descripción", "Imagen", "Estado"};
 
@@ -155,5 +197,23 @@ public class ArticuloControl {
 
     public int totalMostrados() {
         return this.registrosMostrados;
+    }
+
+    public void reporteArticulos() throws ClassNotFoundException {
+        Map p = new HashMap();
+        JasperReport report;
+        JasperPrint print;
+
+        Conexion cnn = Conexion.getInstancia();
+        try {
+            report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
+                    + "/src/reportes/rptArticulos.jrxml");
+            print = JasperFillManager.fillReport(report, p, cnn.conectar());
+            JasperViewer view = new JasperViewer(print, false);
+            view.setTitle("Reporte de articulos (Demo)");
+            view.setVisible(true);
+        } catch (JRException e) {
+            e.getMessage();
+        }
     }
 }

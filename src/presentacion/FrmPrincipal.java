@@ -21,6 +21,39 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+        this.cargarOpcionesMenu();
+    }
+
+    private void cargarOpcionesMenu() {
+        if (negocio.Variables.rolNombre.equals("administrador")) {
+            mnuAlmacen.setEnabled(true);
+            mnuCompras.setEnabled(true);
+            mnuVentas.setEnabled(true);
+            mnuAcceso.setEnabled(true);
+            itemConsultaCompras.setEnabled(true);
+            itemConsultaVentas.setEnabled(true);
+        } else if (negocio.Variables.rolNombre.equals("almacenero")) {
+            mnuAlmacen.setEnabled(true);
+            mnuCompras.setEnabled(true);
+            mnuVentas.setEnabled(false);
+            mnuAcceso.setEnabled(false);
+            itemConsultaCompras.setEnabled(true);
+            itemConsultaVentas.setEnabled(false);
+        } else if (negocio.Variables.rolNombre.equals("vendedor")) {
+            mnuAlmacen.setEnabled(false);
+            mnuCompras.setEnabled(false);
+            mnuVentas.setEnabled(true);
+            mnuAcceso.setEnabled(false);
+            itemConsultaCompras.setEnabled(false);
+            itemConsultaVentas.setEnabled(true);
+        } else {
+            mnuAlmacen.setEnabled(false);
+            mnuCompras.setEnabled(false);
+            mnuVentas.setEnabled(false);
+            mnuAcceso.setEnabled(false);
+            itemConsultaCompras.setEnabled(false);
+            itemConsultaVentas.setEnabled(false);
+        }
     }
 
     /**
@@ -47,9 +80,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         mnuConsultas = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        itemConsultaCompras = new javax.swing.JMenuItem();
+        itemConsultaVentas = new javax.swing.JMenuItem();
+        mnuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Compras y Ventas V 1.0");
@@ -91,6 +124,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItem4.setText("Ingresos");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         mnuCompras.add(jMenuItem4);
 
         menuBar.add(mnuCompras);
@@ -144,19 +182,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnuConsultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/images/consultas.png"))); // NOI18N
         mnuConsultas.setText("Reportes");
 
-        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItem9.setText("Libro compras");
-        mnuConsultas.add(jMenuItem9);
+        itemConsultaCompras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        itemConsultaCompras.setText("Libro compras");
+        mnuConsultas.add(itemConsultaCompras);
 
-        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItem10.setText("Libro ventas");
-        mnuConsultas.add(jMenuItem10);
+        itemConsultaVentas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        itemConsultaVentas.setText("Libro ventas");
+        mnuConsultas.add(itemConsultaVentas);
 
         menuBar.add(mnuConsultas);
 
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/images/salir.png"))); // NOI18N
-        jMenu6.setText("Salir");
-        menuBar.add(jMenu6);
+        mnuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/images/salir.png"))); // NOI18N
+        mnuSalir.setText("Salir");
+        mnuSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuSalirMouseClicked(evt);
+            }
+        });
+        menuBar.add(mnuSalir);
 
         setJMenuBar(menuBar);
 
@@ -175,7 +218,23 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
+        try {
+            frmVenta frm = new frmVenta(this);
+//        escritorio.add(frm);
+//        frm.setVisible(true);
+            int x = (escritorio.getWidth() / 2) - frm.getWidth() / 2;
+            int y = (escritorio.getHeight() / 2) - frm.getHeight() / 2;
+
+            if (frm.isShowing()) {
+                frm.setLocation(x, y);
+            } else {
+                escritorio.add(frm);
+                frm.setLocation(x, y);
+                frm.show();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -294,6 +353,31 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void mnuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuSalirMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_mnuSalirMouseClicked
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        try {
+            frmIngreso frm = new frmIngreso(this);
+            //        escritorio.add(frm);
+//        frm.setVisible(true);
+            int x = (escritorio.getWidth() / 2) - frm.getWidth() / 2;
+            int y = (escritorio.getHeight() / 2) - frm.getHeight() / 2;
+            if (frm.isShowing()) {
+                frm.setLocation(x, y);
+            } else {
+                escritorio.add(frm);
+                frm.setLocation(x, y);
+                frm.show();
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -327,9 +411,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
-    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenuItem itemConsultaCompras;
+    private javax.swing.JMenuItem itemConsultaVentas;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -337,12 +421,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu mnuAcceso;
     private javax.swing.JMenu mnuAlmacen;
     private javax.swing.JMenu mnuCompras;
     private javax.swing.JMenu mnuConsultas;
+    private javax.swing.JMenu mnuSalir;
     private javax.swing.JMenu mnuVentas;
     // End of variables declaration//GEN-END:variables
 

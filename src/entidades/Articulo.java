@@ -37,6 +37,16 @@ public class Articulo {
         this.activo = activo;
     }
 
+    public Articulo(int id, String codigo, String nombre, double precioVenta, int stock) {
+        this.id = id;
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.precioVenta = precioVenta;
+        this.stock = stock;
+    }
+    
+    
+
     public int getId() {
         return id;
     }
