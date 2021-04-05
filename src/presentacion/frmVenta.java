@@ -154,7 +154,7 @@ public class frmVenta extends javax.swing.JInternalFrame {
                     Double precioD = Double.parseDouble((String) getValueAt(row, 5));
                     Double descuentoD = Double.parseDouble((String) getValueAt(row, 6));
                     if (cantD != null && precioD != null && descuentoD != null) {
-                        return String.format("%.2f", (cantD * precioD) - descuentoD);
+                        return String.format("%.0f", (cantD * precioD) - descuentoD);
                     } else {
                         return 0;
                     }

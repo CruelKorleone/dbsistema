@@ -176,7 +176,7 @@ public class frmIngreso extends javax.swing.JInternalFrame {
                     }
                     Double precioD = Double.parseDouble((String) getValueAt(row, 4));
                     if (cantD != null && precioD != null) {
-                        return String.format("%.2f", cantD * precioD);
+                        return String.format("%.0f", cantD * precioD);
                     } else {
                         return 0;
                     }
