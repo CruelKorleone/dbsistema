@@ -15,10 +15,10 @@ import javax.swing.JOptionPane;
 public class Conexion {
 
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private final String URL = "jdbc:mysql://localhost:3306/";
+    private final String URL = "jdbc:mysql://192.168.100.13:3306/";
     private final String DB = "dbsistema";
-    private final String USER = "root";
-    private final String PASSWORD = "Santino2013";
+    private final String USER = "betto";
+    private final String PASSWORD = "Santino2013!!";
 
     public Connection cadena;
     public static Conexion instancia; //Patrón singleton
