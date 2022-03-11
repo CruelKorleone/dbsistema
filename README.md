@@ -1,1 +1,6 @@
-This is a simple desktop application using Java with Mysql Database.
+# Point of Sales
+* Sales
+* Purchases
+* Clients
+* Suppliers
+* Stock
